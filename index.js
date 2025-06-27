@@ -1,6 +1,6 @@
 let fs = module.require("/modules/fs");
 
-function requireHelper(callerModule, path) {
+function requireHelper(callerModule, path, mode) {
     if (!path.startsWith('.')) {
         return callerModule.require(`/modules/${path}`);
     }
@@ -16,7 +16,11 @@ function requireHelper(callerModule, path) {
         return JSON.parse(content);
     }
 
-    return callerModule.require(path);
+    if (mode) {
+        return callerModule.require(path, mode);
+    } else {
+        return callerModule.require(path);
+    }
 }
 
 module.exports = requireHelper;
