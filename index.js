@@ -6,9 +6,8 @@ function requireHelper(callerModule, path, mode) {
     }
 
     if (path.endsWith(".json")) {
-        let path;
         if (!path.startsWith('/')) {
-            path = `${java.lang.String.join('/', callerModule.path)}/${path}`;
+            path = `${java.lang.String.join('/', Array.from(callerModule.path).slice(0, callerModule.path.length - 1))}/${path}`;
         }
 
         let content = fs.readFileSync(path, "utf8");
